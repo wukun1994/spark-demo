@@ -21,12 +21,16 @@ object OfflineApp {
     // 根据条件过滤取出需要的 RDD, 过滤条件定义在配置文件中
     val userVisitActionRDD  = readUserVisitActionRDD(spark,readConditions)
     userVisitActionRDD.cache() //做缓存
-     println("任务1: 开始")
+    /* println("任务1: 开始")
     val categoryTop10 = CategoryTop10App.statCategoryTop10(spark, userVisitActionRDD, taskId)
     println("任务1: 结束")
     println("任务2: 开始")
     CategorySessionApp.statCategoryTop10Session(spark,categoryTop10,userVisitActionRDD,taskId)
-    println("任务2: 结束")
+    println("任务2: 结束")*/
+    println("任务3:开始")
+    PageConversionApp.calcPageConversion(spark,userVisitActionRDD,readConditions.targetPageFlow,taskId)
+    println("任务3:结束")
+
    /* println("任务4: 开始")
     AreaProductClick.statAreaClickTop3Product(spark,taskId)
     println("任务4: 结束")*/
