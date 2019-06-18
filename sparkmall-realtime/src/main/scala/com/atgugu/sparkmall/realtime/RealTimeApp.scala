@@ -1,6 +1,6 @@
 package com.atgugu.sparkmall.realtime
 
-import com.atgugu.sparkmall.realtime.app.{BlackListApp, DayAreaCityAdsApp, LastHourAdsClickApp}
+import com.atgugu.sparkmall.realtime.app.{AreaAdsTop3App, BlackListApp, DayAreaCityAdsApp, LastHourAdsClickApp}
 import com.atgugu.sparkmall.realtime.bean.AdsInfo
 import com.atguigu.sparkmall.common.util.MyKafkaUtil
 import org.apache.kafka.clients.consumer.ConsumerRecord
@@ -26,9 +26,11 @@ object RealTimeApp {
         AdsInfo(split(0).toLong, split(1), split(2), split(3), split(4))
 
     }
+   // BlackListApp.checkUserFromBlackList(adsInfoDStream,sc)
    // BlackListApp.checkUserToBlackList(adsInfoDStream)
-   // DayAreaCityAdsApp.statAreaCityAdsCountPerDay(adsInfoDStream,sc)
-    LastHourAdsClickApp.statLastHourAdsClick(adsInfoDStream)
+    val dayAreaCityAdsCount = DayAreaCityAdsApp.statAreaCityAdsCountPerDay(adsInfoDStream,sc)
+   // LastHourAdsClickApp.statLastHourAdsClick(adsInfoDStream)
+   AreaAdsTop3App.statAreaAdsTop3(dayAreaCityAdsCount)
     ssc.start()
     ssc.awaitTermination()
   }
