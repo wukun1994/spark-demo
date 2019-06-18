@@ -29,7 +29,7 @@ object LastHourAdsClickApp {
     jsonCountDStream.foreachRDD(rdd=>{
       val result = rdd.collect
       import collection.JavaConversions._
-      val client = RedisUtil.getJedisClient
+c      val client = RedisUtil.getJedisClient
       client.hmset("last_hour_ads_click", result.toMap)
       client.close()
     })
