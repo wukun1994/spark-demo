@@ -1,5 +1,6 @@
 package com.atgugu.sparkmall.realtime
 
+import com.atgugu.sparkmall.realtime.app.BlackListApp
 import com.atgugu.sparkmall.realtime.bean.AdsInfo
 import com.atguigu.sparkmall.common.util.MyKafkaUtil
 import org.apache.kafka.clients.consumer.ConsumerRecord
@@ -25,7 +26,7 @@ object RealTimeApp {
         AdsInfo(split(0).toLong, split(1), split(2), split(3), split(4))
 
     }
-    adsInfoDStream.print()
+    BlackListApp.checkUserToBlackList(adsInfoDStream)
     ssc.start()
     ssc.awaitTermination()
   }
